@@ -1,0 +1,53 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": "Fire Counts by Year and Type",
+    "width": 800,
+    "height": 500,
+    "data": {
+      "url": "NSW_fire.json",
+      "format": {
+        "type": "topojson",
+        "feature": "NSW_fire_history_polygons"
+      }
+    },
+    "transform": [
+      {
+        "filter": "datum.properties.StartDate >= '2000-01-01' && datum.properties.StartDate <= '2020-12-31'"
+      },
+      {
+        "calculate": "year(datum.properties.StartDate)",
+        "as": "Year"
+      }
+    ],
+    "mark": "bar",
+    "encoding": {
+      "x": {
+        "field": "Year",
+        "type": "ordinal",
+        "title": "Year"
+      },
+      "y": {
+        "aggregate": "count",
+        "field": "properties.Type",
+        "type": "quantitative",
+        "title": "Number of Fires"
+      },
+      "color": {
+        "field": "properties.Type",
+        "type": "nominal",
+        "scale": {
+          "domain": ["Prescribed Burn", "Wildfire"],
+          "range": ["#0000FF", "#FF0000"]
+        },
+        "legend": {
+          "title": "Fire Type"
+        }
+      },
+      "tooltip": [
+        {"field": "Year", "type": "ordinal", "title": "Year"},
+        {"field": "properties.Type", "type": "nominal", "title": "Fire Type"},
+        {"aggregate": "count", "field": "properties.Type", "type": "quantitative", "title": "Number of Fires"}
+      ]
+    }
+  }
+  

@@ -1,0 +1,55 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": "Scatter Plot of Burn Area vs Year (2000-2020)",
+    "width": 800,
+    "height": 500,
+    "data": {
+      "url": "NSW_fire.json",
+      "format": {
+        "type": "topojson",
+        "feature": "NSW_fire_history_polygons"
+      }
+    },
+    "transform": [
+      {
+        "filter": "year(datum.properties.StartDate) >= 2000 && year(datum.properties.StartDate) <= 2020"
+      }
+    ],
+    "mark": "circle",
+    "encoding": {
+      "x": {
+        "field": "properties.StartDate",
+        "type": "temporal",
+        "title": "Year"
+      },
+      "y": {
+        "field": "properties.AreaHa",
+        "type": "quantitative",
+        "title": "Burn Area (Ha)",
+        "scale": {
+            "type": "log"
+          },
+          "axis": {
+            "format": "~s"
+          }
+      },
+      "color": {
+        "field": "properties.Type",
+        "type": "nominal",
+        "scale": {
+          "domain": ["Prescribed Burn", "Wildfire"],
+          "range": ["#0000FF", "#FF0000"]
+        },
+        "legend": {
+          "title": "Fire Type"
+        }
+      },
+      "tooltip": [
+        {"field": "properties.Label", "type": "nominal", "title": "Fire Label"},
+        {"field": "properties.Type", "type": "nominal", "title": "Fire Type"},
+        {"field": "properties.AreaHa", "type": "quantitative", "title": "Area (Ha)"},
+        {"field": "properties.StartDate", "type": "temporal", "title": "Start Date"}
+      ]
+    }
+  }
+  

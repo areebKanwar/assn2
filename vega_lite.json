@@ -1,0 +1,84 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "NSW Fire Map (2000-2020)",
+  "width": 800,
+  "height": 500,
+  "params": [
+    {
+      "name": "year_slider",
+      "value": 2000,
+      "bind": {
+        "input": "range",
+        "min": 2000,
+        "max": 2020,
+        "step": 1,
+        "name": "Year: "
+      }
+    },
+    {
+      "name": "show_all_years",
+      "value": true,
+      "bind": {
+        "input": "checkbox",
+        "name": "Show All Years"
+      }
+    }
+  ],
+  "layer": [
+    {
+      "data": {
+        "url": "state_basemap.json",
+        "format": {
+          "type": "topojson",
+          "feature": "ne_10m_admin_1_states_provinces"
+        }
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "#d3d3d3",
+        "stroke": "white"
+      },
+      "projection": {
+        "type": "mercator"
+      }
+    },
+    {
+      "data": {
+        "url": "NSW_fire.json",
+        "format": {
+          "type": "topojson",
+          "feature": "NSW_fire_history_polygons"
+        }
+      },
+      "transform": [
+        {
+          "filter": "show_all_years || year(datum.properties.StartDate) == year_slider"
+        }
+      ],
+      "mark": {
+        "type": "geoshape",
+        "opacity": 1
+      },
+      "encoding": {
+        "color": {
+          "field": "properties.Type",
+          "type": "nominal",
+          "scale": {
+            "domain": ["Prescribed Burn", "Wildfire"],
+            "range": ["#0000FF", "#FF0000"]
+          },
+          "legend": {
+            "title": "Fire Type"
+          }
+        },
+        "tooltip": [
+          {"field": "properties.Label", "type": "nominal", "title": "Fire Label"},
+          {"field": "properties.Type", "type": "nominal", "title": "Fire Type"},
+          {"field": "properties.AreaHa", "type": "quantitative", "title": "Area (Ha)"},
+          {"field": "properties.StartDate", "type": "temporal", "title": "Start Date"}
+        ]
+      }
+    }
+  ]
+  
+  }

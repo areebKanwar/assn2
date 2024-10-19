@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NSW Wildfire Data Visualization</title>
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.1.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.17.0"></script>
+    <script src="render_map.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        .chart-container {
+            margin: 20px 0;
+        }
+
+        .chart-container p {
+            font-size: 1em;
+            margin-top: 10px;
+            text-align: left;
+            max-width: 800px;
+            margin: 10px auto;
+        }
+
+        #map,
+        #top_ten_fires,
+        #barChart,
+        #scatterPlot {
+            margin: 20px auto;
+            max-width: 800px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>NSW Wildfire Data Visualizations (2000-2020)</h1>
+    <p>
+        The dataset used in this analysis covers the history of wildfires and prescribed burns in New South Wales, Australia,
+        from 2000 to 2020. These visualizations are intended to inform policymakers about historical fire trends, the areas
+        affected, and the types of fires. This information is crucial for understanding risk areas, allocating resources, and
+        preventing future wildfire incidents.
+    </p>
+
+    <div id="map" class="chart-container"></div>
+    <p>
+        This map visualizes the areas impacted by wildfires and prescribed burns across NSW from 2000 to 2020. It helps
+        identify fire hotspots and guide preventive measures and policies for fire management.
+    </p>
+
+ 
+
+    <h2>Fire Counts by Year and Type</h2>
+    <div id="barChart" class="chart-container"></div>
+    <p>
+        This stacked bar chart illustrates the annual count of fires categorized by type (Wildfire or Prescribed Burn). It shows trends in fire activity, 
+        which helps policymakers determine whether prescribed burns effectively reduce wildfires. For example, in 2009, a high number of wildfires 
+        were observed, which may have been influenced by a lower number of prescribed burns.<b> This suggests that prescribed burns can be a critical 
+        tool in reducing the occurrence of severe wildfires.</b>
+    </p>
+
+    <h2>Top Ten Largest Bushfires by Area</h2>
+    <div id="top_ten_fires" class="chart-container"></div>
+    <p>
+        The bar chart highlights the ten largest bushfires in terms of area burned. It provides insights into the severity of past wildfires,
+        helping to understand the need for effective land management, resource allocation, and prevention measures.
+    </p>
+
+    <h2>Scatter Plot of Burn Area vs Year</h2>
+    <div id="scatterPlot" class="chart-container"></div>
+    <p>
+        The scatter plot shows the relationship between the year and the burn area. Each point represents a wildfire or prescribed burn.
+        This helps assess trends in fire size over time and highlights patterns that could be addressed through policy.
+    </p>
+</body>
+
+</html>
